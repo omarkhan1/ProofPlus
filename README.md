@@ -1,1 +1,1 @@
-# proofplus
+# quran.ai
