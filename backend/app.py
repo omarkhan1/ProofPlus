@@ -14,7 +14,9 @@ class Location:
 
 class Prediction(Resource):
     def post(self):
-        return jsonify({"location_1": Location(1, 1), "location_2": Location(2, 2), "location_3": Location(3, 3)})
+        return jsonify({"location_1": Location(1, 1), 
+                        "location_2": Location(2, 2), 
+                        "location_3": Location(3, 3)})
 
 
 @app.route('/')

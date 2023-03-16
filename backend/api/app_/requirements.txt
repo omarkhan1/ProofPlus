@@ -1,5 +1,0 @@
-fastapi==0.94.1
-numpy==1.19.2
-pydantic==1.7.4
-pydub==0.25.1
-tensorflow==2.5.0
