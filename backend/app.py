@@ -1,12 +1,12 @@
-from flask import Flask
-from flask_restful import Api, Resource, jsonify
+from flask import Flask, jsonify
+from flask_restful import Api, Resource
 
 app = Flask(__name__)
 api = Api(app)
 
 
 class Prediction(Resource):
-    def post(self):
+    def get(self):
         return jsonify({"location_1": (1, 1), "location_2": (2, 2), "location_3": (3, 3)})
 
 
