@@ -1,0 +1,5 @@
+github email: ethanconcannon@gmail.com
+github token: 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
+
+public_ip: 18.223.195.96
+
