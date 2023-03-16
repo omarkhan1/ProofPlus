@@ -1,4 +1,4 @@
 import os
 
 SECRET_KEY = os.urandom(24)
-UPLOAD_FOLDER = '/uploads'
+UPLOAD_FOLDER = os.getcwd() + "/uploads"
