@@ -4,11 +4,12 @@ from flask_restful import Api, Resource
 from dataclasses import dataclass
 from werkzeug.utils import secure_filename
 
-UPLOAD_FOLDER = '/uploads'
+# UPLOAD_FOLDER = '/uploads'
 ALLOWED_EXTENSIONS = {'mp3', 'mp4'}
 
 app = Flask(__name__)
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+# app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config.from_pyfile('config.py')
 # sess = Session()
 api = Api(app)
 
