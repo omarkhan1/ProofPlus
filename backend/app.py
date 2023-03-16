@@ -1,23 +1,18 @@
+import os
 from flask import Flask, jsonify, request
 from flask_restful import Api, Resource
-from dataclasses import dataclass
 from werkzeug.utils import secure_filename
-import os
+from predictor import predict, Location
 
-ALLOWED_EXTENSIONS = {'mp3', 'mp4'}
 
 app = Flask(__name__)
 app.config.from_pyfile('config.py')
 api = Api(app)
 
 
-@dataclass
-class Location:
-    chapter: int
-    verse: int
-
-
 class Prediction(Resource):
+    # some of this code was taken from Flask's documentation for uploading
+    # files at https://flask.palletsprojects.com/en/2.1.x/patterns/fileuploads/
     def post(self):
         # no file sent
         if 'file' not in request.files:
@@ -31,10 +26,12 @@ class Prediction(Resource):
             return jsonify({"location_0": Location(-1, -1)})
         
         filename = secure_filename(file.filename)
-        # file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        return jsonify({"location_1": Location(1, 1), 
-                        "location_2": Location(2, 2), 
-                        "location_3": Location(3, 3)})
+        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        location_1, location_2, location_3 = predict(filename)
+        os.remove(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        return jsonify({"location_1": location_1, 
+                        "location_2": location_2, 
+                        "location_3": location_3})
 
 
 @app.route('/')
