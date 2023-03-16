@@ -26,19 +26,19 @@ def allowed_file(filename):
 
 class Prediction(Resource):
     def post(self):
-        if 'file' not in request.files:
-            flash('No file part')
-            return redirect(request.url)
-        file = request.files['file']
-        # If the user does not select a file, the browser submits an
-        # empty file without a filename.
-        if file.filename == '':
-            flash('No selected file')
-            return redirect(request.url)
-        if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            return redirect(url_for('download_file', name=filename))
+        # if 'file' not in request.files:
+        #     flash('No file part')
+        #     return redirect(request.url)
+        # file = request.files['file']
+        # # If the user does not select a file, the browser submits an
+        # # empty file without a filename.
+        # if file.filename == '':
+        #     flash('No selected file')
+        #     return redirect(request.url)
+        # if file and allowed_file(file.filename):
+        #     filename = secure_filename(file.filename)
+        #     file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        #     return redirect(url_for('download_file', name=filename))
         return jsonify({"location_1": Location(1, 1), 
                         "location_2": Location(2, 2), 
                         "location_3": Location(3, 3)})
