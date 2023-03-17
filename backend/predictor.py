@@ -3,7 +3,7 @@ from tensorflow import keras
 import numpy as np
 import pydub
 from dataclasses import dataclass
-from config import UPLOAD_FOLDER
+import os
 
 
 @dataclass
@@ -15,7 +15,7 @@ class Location:
 # transform mp3 into tensor, with a sample rate of 11025 Hz and 
 # a standard deviation of 1
 def audio_to_tensor(filename: str) -> tf.Tensor:
-    filepath = UPLOAD_FOLDER + "/" + filename
+    filepath = os.path.join(os.getcwd(), filename)
     audio = pydub.AudioSegment.from_mp3(filepath)
     if audio.sample_width == 2:
         samples = np.frombuffer(audio._data, dtype=np.int16)

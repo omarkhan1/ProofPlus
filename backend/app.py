@@ -26,9 +26,9 @@ class Prediction(Resource):
             return jsonify({"location_0": Location(-1, -1)})
         
         filename = secure_filename(file.filename)
-        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        file.save(os.path.join(os.getcwd(), filename))
         location_1, location_2, location_3 = predict(filename)
-        os.remove(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        os.remove(os.path.join(os.getcwd(), filename))
         return jsonify({"location_1": location_1, 
                         "location_2": location_2, 
                         "location_3": location_3})
