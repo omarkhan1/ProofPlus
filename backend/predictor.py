@@ -12,7 +12,7 @@ class Location:
     verse: int
 
 
-# transform mp3 into tensor, with a sample rate of 22050 Hz and 
+# transform mp3 into tensor, with a sample rate of 11025 Hz and 
 # a standard deviation of 1
 def audio_to_tensor(filename: str) -> tf.Tensor:
     filepath = UPLOAD_FOLDER + "/" + filename
@@ -23,16 +23,16 @@ def audio_to_tensor(filename: str) -> tf.Tensor:
         samples = np.frombuffer(audio._data, dtype=np.int32)
     samples = samples.astype("float32")
     
-    # Subsample the audio to 22050 Hz and 1-channel
+    # Subsample the audio to 11025 Hz and 1-channel
     length = samples.shape[0]
     downsample = audio.channels * audio.frame_rate
-    if downsample < 22050:
-        downsample = 22050 // downsample
+    if downsample < 11025:
+        downsample = 11025 // downsample
         samples = np.reshape(samples, (1, -1))
         samples = np.broadcast_to(samples, (downsample, length))
         samples = np.reshape(samples, length * downsample)
     else:
-        downsample //= 22050
+        downsample //= 11025
         if length % downsample != 0:
             samples = np.pad(samples,
                     (0, downsample - length % downsample), "constant")
