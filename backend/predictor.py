@@ -16,6 +16,7 @@ class Location:
 # a standard deviation of 1
 def audio_to_tensor(filename: str) -> tf.Tensor:
     filepath = os.path.join(os.getcwd(), filename)
+    print(f"getting audio: {os.path.join(os.getcwd(), filename)}")
     audio = pydub.AudioSegment.from_mp3(filepath)
     if audio.sample_width == 2:
         samples = np.frombuffer(audio._data, dtype=np.int16)

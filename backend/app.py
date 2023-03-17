@@ -27,8 +27,11 @@ class Prediction(Resource):
         
         filename = secure_filename(file.filename)
         file.save(os.path.join(os.getcwd(), filename))
+        print(f"saving file: {os.path.join(os.getcwd(), filename)}")
         location_1, location_2, location_3 = predict(filename)
+        print(f"prediction done")
         os.remove(os.path.join(os.getcwd(), filename))
+        print(f"deleting file: {os.path.join(os.getcwd(), filename)}")
         return jsonify({"location_1": location_1, 
                         "location_2": location_2, 
                         "location_3": location_3})
