@@ -1,24 +1,31 @@
 package edu.umich.anauman.quranai
 
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.media.MediaRecorder
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.VibrationEffect
 import android.os.Vibrator
 import android.provider.MediaStore.Audio.Media
 import android.view.View
+import android.webkit.WebView
 import android.widget.LinearLayout
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.android.synthetic.main.bottom_sheet.*
 import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 
 const val REQUEST_CODE = 200;
@@ -74,9 +81,42 @@ class MainActivity : AppCompatActivity(), Timer.OnTimerTickListener {
             stopRecorder()
 //            Toast.makeText(this, "Analyzing data..", Toast.LENGTH_SHORT).show()
             println("$dirPath$filename.mp3")
-            bottomsheetSubheader.text = "File was saved at $dirPath$filename.mp3"
+//            bottomsheetSubheader.text = "File was saved at $dirPath$filename.mp3"
+
+            val results = getPredictions("$dirPath$filename.mp3")
+
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
-            bottomSheetBG.visibility = View.VISIBLE;
+
+            val textView1 = findViewById<TextView>(R.id.verse1)
+            val textView2 = findViewById<TextView>(R.id.verse2)
+            val textView3 = findViewById<TextView>(R.id.verse3)
+
+
+            val webView = findViewById<WebView>(R.id.webView)
+
+
+
+            textView1.setOnClickListener {
+                mainlayout.visibility = View.GONE
+                bottomSheetBG.visibility = View.GONE
+                webView.loadUrl(getQuranComLink(results["chapter_1"], results["verse_1"]))
+                bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+            }
+
+            textView2.setOnClickListener {
+                mainlayout.visibility = View.GONE
+                bottomSheetBG.visibility = View.GONE
+                webView.loadUrl(getQuranComLink(results["chapter_2"], results["verse_2"]))
+                bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+            }
+
+            textView3.setOnClickListener {
+                mainlayout.visibility = View.GONE
+                bottomSheetBG.visibility = View.GONE
+                webView.loadUrl(getQuranComLink(results["chapter_3"], results["verse_3"]))
+                bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+            }
+            bottomSheetBG.visibility = View.VISIBLE
         }
 
 
