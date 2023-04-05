@@ -72,7 +72,7 @@ def get_surah_and_verse(label: int) -> Location:
             return Location(int(surah), int(verse))
         
 def predict(filename: str):
-    model = keras.models.load_model("model_skeletal")
+    model = keras.models.load_model("model_mvp")
     wave = audio_to_tensor(filename)
     probabilities = model.predict(wave)[0, :]
     results = []
