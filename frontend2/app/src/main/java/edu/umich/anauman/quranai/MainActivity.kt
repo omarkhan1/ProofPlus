@@ -90,12 +90,9 @@ class MainActivity : AppCompatActivity(), Timer.OnTimerTickListener {
             val textView1 = findViewById<TextView>(R.id.verse1)
             val textView2 = findViewById<TextView>(R.id.verse2)
             val textView3 = findViewById<TextView>(R.id.verse3)
-
-
             val webView = findViewById<WebView>(R.id.webView)
 
-
-
+            //textView1.text = "%d:%d".format(results["chapter_1"], results["verse_1"])
             textView1.setOnClickListener {
                 mainlayout.visibility = View.GONE
                 bottomSheetBG.visibility = View.GONE
