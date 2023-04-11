@@ -2,6 +2,10 @@ import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import db
 import numpy as np
+from email.message import EmailMessage
+from password import password_in
+import ssl
+import smtplib
 
 
 def get_surah_and_verse(label):
@@ -48,6 +52,7 @@ def get_highest_verse_counts():
             "databaseURL": "https://proofplus-14b46-default-rtdb.firebaseio.com/"
         })
    
+    # find most popular verses
     ref = db.reference("/verses") 
     data = ref.get()
     results = []
@@ -55,11 +60,37 @@ def get_highest_verse_counts():
         label = np.argmax(data)
         data[label] = -1  # verse will not be considered later
         results.append(get_surah_and_verse(label))
+        
+    # get emails and send them
+    ref = db.reference("/email")
+    data = ref.get()
+    emails = set()
+    for item in data.values():
+        emails.add(item["email"])
     
+    for email in emails: # this loop takes inspiration from https://www.youtube.com/watch?v=zxFXnLEmnb4
+        em = EmailMessage()   
+        sender = "ethanconcannon@gmail.com"
+        password = password_in
+        em["From"] = sender
+        em["To"] = email
+        em["Subject"] = "This Week's Most Popular Verses!"
+        em.set_content(f"""
+        Assalamu alaykum!
+        This week's most popular verses are:
+        Chapter {results[0][0]} Verse {results[0][1]}
+        Chapter {results[1][0]} Verse {results[1][1]}
+        Chapter {results[2][0]} Verse {results[2][1]}.
+        """)
+        context = ssl.create_default_context()
+        with smtplib.SMTP_SSL('smtp.gmail.com', 465, context=context) as smtp:
+            smtp.login(sender, password)
+            smtp.sendmail(sender, email, em.as_string())
+        
     
 if __name__ == "__main__":    
     get_highest_verse_counts()
-    reset_verse_counts()
+    # reset_verse_counts()
     
 
 
