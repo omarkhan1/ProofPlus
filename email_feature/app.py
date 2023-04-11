@@ -6,7 +6,6 @@ from firebase_admin import db
 
 
 app = Flask(__name__)
-# app.config.from_pyfile('config.py')
 api = Api(app)
 
 
