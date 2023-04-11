@@ -36,7 +36,7 @@ def reset_verse_counts():
 
     for i in range(6236):
         ref = db.reference(f"/verses/{i}")
-        ref.set(np.random.randint(0, 100))   
+        ref.set(0)   
         
     return 
 
@@ -57,8 +57,9 @@ def get_highest_verse_counts():
         results.append(get_surah_and_verse(label))
     
     
-# get_highest_verse_counts()
-reset_verse_counts()
+if __name__ == "__main__":    
+    get_highest_verse_counts()
+    reset_verse_counts()
     
 
 
