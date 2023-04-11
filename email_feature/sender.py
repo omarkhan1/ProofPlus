@@ -90,7 +90,7 @@ def get_highest_verse_counts():
     
 if __name__ == "__main__":    
     get_highest_verse_counts()
-    # reset_verse_counts()
+    reset_verse_counts()
     
 
 
