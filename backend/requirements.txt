@@ -47,7 +47,7 @@ oauthlib==3.2.2
 opt-einsum==3.3.0
 packaging==23.0
 proto-plus==1.22.2
-protobuf==4.22.1
+protobuf
 pyasn1==0.4.8
 pyasn1-modules==0.2.8
 pycparser==2.21
