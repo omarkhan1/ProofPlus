@@ -35,7 +35,7 @@ class Prediction(Resource):
         return jsonify({"location_1": location_1, 
                         "location_2": location_2, 
                         "location_3": location_3})
-        
+
 
 @app.route('/')
 def home():
