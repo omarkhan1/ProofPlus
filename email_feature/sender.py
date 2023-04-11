@@ -3,7 +3,7 @@ from firebase_admin import credentials
 from firebase_admin import db
 import numpy as np
 from email.message import EmailMessage
-from password import password_in
+from password import sender_in, password_in
 import ssl
 import smtplib
 
@@ -70,7 +70,7 @@ def get_highest_verse_counts():
     
     for email in emails: # this loop takes inspiration from https://www.youtube.com/watch?v=zxFXnLEmnb4
         em = EmailMessage()   
-        sender = "ethanconcannon@gmail.com"
+        sender = sender_in
         password = password_in
         em["From"] = sender
         em["To"] = email
