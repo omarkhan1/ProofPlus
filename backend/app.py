@@ -16,14 +16,18 @@ class Prediction(Resource):
     def post(self):
         # no file sent
         if 'file' not in request.files:
-            return jsonify({"location_0": Location(-2, -1)})
+            return jsonify({"location_1": Location(0, 0),
+                            "location_2": Location(0, 0),
+                            "location_3": Location(0, 0)})
         
         file = request.files['file']
         # file is not an mp3 or mp4
         _, file_extension = os.path.splitext(file.filename)
         print(file_extension)
         if file_extension not in ['.mp3', '.mp4']:
-            return jsonify({"location_0": Location(-1, -1)})
+            return jsonify({"location_1": Location(0, 0),
+                            "location_2": Location(0, 0),
+                            "location_3": Location(0, 0)})
         
         filename = secure_filename(file.filename)
         file.save(os.path.join(os.getcwd(), filename))
