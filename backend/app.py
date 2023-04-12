@@ -3,6 +3,9 @@ from flask import Flask, jsonify, request
 from flask_restful import Api, Resource
 from werkzeug.utils import secure_filename
 from predictor import predict, Location
+import base64
+import pydub
+import io
 
 
 app = Flask(__name__)
@@ -28,14 +31,10 @@ class Prediction(Resource):
             return jsonify({"location_1": Location(0, 0),
                             "location_2": Location(0, 0),
                             "location_3": Location(0, 0)})
-        
-        filename = secure_filename(file.filename)
-        file.save(os.path.join(os.getcwd(), filename))
-        print(f"saving file: {os.path.join(os.getcwd(), filename)}")
-        location_1, location_2, location_3 = predict(filename)
+            
+        encoded_data = file.read()
+        location_1, location_2, location_3 = predict(encoded_data)
         print(f"prediction done")
-        os.remove(os.path.join(os.getcwd(), filename))
-        print(f"deleting file: {os.path.join(os.getcwd(), filename)}")
         return jsonify({"location_1": location_1, 
                         "location_2": location_2, 
                         "location_3": location_3})

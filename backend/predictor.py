@@ -4,6 +4,7 @@ import numpy as np
 import pydub
 from dataclasses import dataclass
 import os
+import io 
 
 
 @dataclass
@@ -14,10 +15,9 @@ class Location:
 
 # transform mp3 into tensor, with a sample rate of 11025 Hz and 
 # a standard deviation of 1
-def audio_to_tensor(filename: str) -> tf.Tensor:
-    filepath = os.path.join(os.getcwd(), filename)
-    print(f"getting audio: {os.path.join(os.getcwd(), filename)}")
-    audio = pydub.AudioSegment.from_mp3(filepath)
+# def audio_to_tensor(filename: str) -> tf.Tensor:
+def audio_to_tensor(encoded_data) -> tf.Tensor:
+    audio = pydub.AudioSegment.from_file(io.BytesIO(encoded_data), format='mp3')
     if audio.sample_width == 2:
         samples = np.frombuffer(audio._data, dtype=np.int16)
     else:
@@ -48,6 +48,7 @@ def audio_to_tensor(filename: str) -> tf.Tensor:
     samples = np.pad(samples, (0, 1000 - samples.shape[0] % 1000), "constant")
     samples = np.reshape(samples, (1, 1000, -1))
     samples = np.transpose(samples, (0, 2, 1))
+    
     return tf.convert_to_tensor(samples)
 
 def get_surah_and_verse(label: int) -> Location:
@@ -71,9 +72,11 @@ def get_surah_and_verse(label: int) -> Location:
             verse = label - chapter_start_loc[i] + 1
             return Location(int(surah), int(verse))
         
-def predict(filename: str):
+# def predict(filename: str):
+def predict(encoded_data: str):
     model = keras.models.load_model("model_mvp")
-    wave = audio_to_tensor(filename)
+    # wave = audio_to_tensor(filename)
+    wave = audio_to_tensor(encoded_data)
     probabilities = model.predict(wave)[0, :]
     results = []
     for _ in range(3):
