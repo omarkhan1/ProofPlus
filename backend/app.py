@@ -1,11 +1,7 @@
 import os
 from flask import Flask, jsonify, request
 from flask_restful import Api, Resource
-from werkzeug.utils import secure_filename
 from predictor import predict, Location
-import base64
-import pydub
-import io
 
 
 app = Flask(__name__)
@@ -19,18 +15,18 @@ class Prediction(Resource):
     def post(self):
         # no file sent
         if 'file' not in request.files:
-            return jsonify({"location_1": Location(0, 0),
-                            "location_2": Location(0, 0),
-                            "location_3": Location(0, 0)})
+            return jsonify({"location_1": Location(0, 0, 0),
+                            "location_2": Location(0, 0, 0),
+                            "location_3": Location(0, 0, 0)})
         
         file = request.files['file']
         # file is not an mp3 or mp4
         _, file_extension = os.path.splitext(file.filename)
         print(file_extension)
         if file_extension not in ['.mp3', '.mp4']:
-            return jsonify({"location_1": Location(0, 0),
-                            "location_2": Location(0, 0),
-                            "location_3": Location(0, 0)})
+            return jsonify({"location_1": Location(0, 0, 0),
+                            "location_2": Location(0, 0, 0),
+                            "location_3": Location(0, 0, 0)})
             
         encoded_data = file.read()
         location_1, location_2, location_3 = predict(encoded_data)

@@ -3,7 +3,6 @@ from tensorflow import keras
 import numpy as np
 import pydub
 from dataclasses import dataclass
-import os
 import io 
 
 
@@ -11,11 +10,11 @@ import io
 class Location:
     chapter: int
     verse: int
+    prob: float
 
 
 # transform mp3 into tensor, with a sample rate of 11025 Hz and 
 # a standard deviation of 1
-# def audio_to_tensor(filename: str) -> tf.Tensor:
 def audio_to_tensor(encoded_data) -> tf.Tensor:
     audio = pydub.AudioSegment.from_file(io.BytesIO(encoded_data), format='mp3')
     if audio.sample_width == 2:
@@ -51,7 +50,7 @@ def audio_to_tensor(encoded_data) -> tf.Tensor:
     
     return tf.convert_to_tensor(samples)
 
-def get_surah_and_verse(label: int) -> Location:
+def get_surah_and_verse(label: int) -> tuple(int, int):
     chapter_start_loc = [0, 7, 293, 493, 669, 789, 954, 1160, 1235, 1364, 1473, 
                          1596, 1707, 1750, 1802, 1901, 2029, 2140, 2250, 2348, 
                          2483, 2595, 2673, 2791, 2855, 2932, 3159, 3252, 3340, 
@@ -70,17 +69,17 @@ def get_surah_and_verse(label: int) -> Location:
         if chapter_start_loc[i] <= label and chapter_start_loc[i+1] > label:
             surah = i + 1
             verse = label - chapter_start_loc[i] + 1
-            return Location(int(surah), int(verse))
+            return int(surah), int(verse)
         
-# def predict(filename: str):
 def predict(encoded_data: str):
     model = keras.models.load_model("model_mvp")
-    # wave = audio_to_tensor(filename)
     wave = audio_to_tensor(encoded_data)
     probabilities = model.predict(wave)[0, :]
     results = []
     for _ in range(3):
         label = np.argmax(probabilities)
+        prob = probabilities[label]
         probabilities[label] = -1  # verse will not be considered later
-        results.append(get_surah_and_verse(label))
+        surah, verse = get_surah_and_verse(label)
+        results.append(Location(surah, verse, prob))
     return results
