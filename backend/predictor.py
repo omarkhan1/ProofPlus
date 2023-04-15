@@ -69,7 +69,7 @@ def get_surah_and_verse(label: int) -> tuple(int, int):
         if chapter_start_loc[i] <= label and chapter_start_loc[i+1] > label:
             surah = i + 1
             verse = label - chapter_start_loc[i] + 1
-            return int(surah), int(verse)
+            return (int(surah), int(verse))
         
 def predict(encoded_data: str):
     model = keras.models.load_model("model_mvp")
