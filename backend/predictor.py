@@ -10,7 +10,7 @@ import io
 class Location:
     chapter: int
     verse: int
-    prob: float
+    prob: str
 
 
 # transform mp3 into tensor, with a sample rate of 11025 Hz and 
@@ -78,7 +78,7 @@ def predict(encoded_data: str):
     results = []
     for _ in range(3):
         label = np.argmax(probabilities)
-        prob = probabilities[label]
+        prob = str(probabilities[label]) # convert to string because JSON can't take floats
         probabilities[label] = -1  # verse will not be considered later
         surah, verse = get_surah_and_verse(label)
         results.append(Location(surah, verse, prob))
