@@ -50,7 +50,7 @@ def audio_to_tensor(encoded_data) -> tf.Tensor:
     
     return tf.convert_to_tensor(samples)
 
-def get_surah_and_verse(label: int) -> tuple(int, int):
+def get_surah_and_verse(label: int):
     chapter_start_loc = [0, 7, 293, 493, 669, 789, 954, 1160, 1235, 1364, 1473, 
                          1596, 1707, 1750, 1802, 1901, 2029, 2140, 2250, 2348, 
                          2483, 2595, 2673, 2791, 2855, 2932, 3159, 3252, 3340, 
