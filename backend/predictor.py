@@ -81,7 +81,7 @@ def predict(encoded_data: str):
         prob = probabilities[label]
         probabilities[label] = -1  # verse will not be considered later
         if prob < 0.01:
-            results.append(Location(0, 0, "0.0"))
+            results.append(Location(0, 0, "0"))
             continue
         surah, verse = get_surah_and_verse(label)
         results.append(Location(surah, verse, str(prob)))
