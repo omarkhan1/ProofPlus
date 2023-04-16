@@ -33,6 +33,7 @@ import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
 import com.android.volley.Request
+import com.android.volley.RequestQueue
 import com.android.volley.toolbox.Volley
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -236,19 +237,34 @@ class MainActivity : AppCompatActivity(), Timer.OnTimerTickListener {
 
     private fun setVerseText(chapter: Int, verse: Int, textView: TextView) {
         val queue = Volley.newRequestQueue(this)
-        val postRequest = JsonObjectRequest(
+        val getRequest = JsonObjectRequest(
             Request.Method.GET,
             getQuranTextLink(chapter, verse), null, {
                     response ->
                 textView.text = response.getJSONObject("data").getString("text")
+                incrementVersePopularity(response.getJSONObject("data").getInt("number"), queue)
             }
-        ) { error -> Log.e("sendAudio", error.localizedMessage ?: error.message.toString()) }
+        ) { error -> Log.e("setVerseText", error.localizedMessage ?: error.message.toString()) }
 
-        queue.add(postRequest)
+        queue.add(getRequest)
     }
 
     private fun getQuranTextLink(chapter: Int, verse: Int) : String {
         return String.format("https://api.alquran.cloud/v1/ayah/%d:%d", chapter, verse)
+    }
+
+    private fun incrementVersePopularity(verseNum: Int, queue: RequestQueue) {
+        val jsonObject = mapOf(
+            "verse" to verseNum
+        )
+        val postRequest = JsonObjectRequest(
+            Request.Method.POST,
+            "https://email-client.herokuapp.com/verse", JSONObject(jsonObject), {
+                response ->
+                Log.i("emailClient", "successfully incremented verse count")
+            }
+        ) { error -> Log.e("sendAudio", error.localizedMessage ?: error.message.toString()) }
+        queue.add(postRequest)
     }
 
     private fun recommendation() {
