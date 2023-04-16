@@ -33,6 +33,7 @@ import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
 import com.android.volley.Request
+import com.android.volley.toolbox.Volley
 import java.util.*
 import java.util.concurrent.TimeUnit
 
@@ -150,47 +151,50 @@ class MainActivity : AppCompatActivity(), Timer.OnTimerTickListener {
 
         btnDone.setOnClickListener {
             stopRecorder()
-//            Toast.makeText(this, "Analyzing data..", Toast.LENGTH_SHORT).show()
-            println("$dirPath$filename.mp3")
-//            bottomsheetSubheader.text = "File was saved at $dirPath$filename.mp3"
+            getPredictions(this,"$dirPath$filename.mp3", Response.Listener<JSONObject> { response ->
+                val textView1 = findViewById<TextView>(R.id.verse1)
+                val textView2 = findViewById<TextView>(R.id.verse2)
+                val textView3 = findViewById<TextView>(R.id.verse3)
 
-            val results = getPredictions("$dirPath$filename.mp3")
-            //val res = getData()
+                val webView = findViewById<WebView>(R.id.webView)
 
-            bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+                val chapter_1 = response.getJSONObject("location_1").getInt("chapter") + 1
+                val verse_1 = response.getJSONObject("location_1").getInt("verse") + 1
+                val chapter_2 = response.getJSONObject("location_2").getInt("chapter") + 1
+                val verse_2 = response.getJSONObject("location_2").getInt("verse") + 1
+                val chapter_3 = response.getJSONObject("location_3").getInt("chapter") + 1
+                val verse_3 = response.getJSONObject("location_3").getInt("verse") + 1
 
-            val textView1 = findViewById<TextView>(R.id.verse1)
-            val textView2 = findViewById<TextView>(R.id.verse2)
-            val textView3 = findViewById<TextView>(R.id.verse3)
+                setVerseText(chapter_1, verse_1, textView1)
+                setVerseText(chapter_2, verse_2, textView2)
+                setVerseText(chapter_3, verse_3, textView3)
 
+                textView1.setOnClickListener {
+                    mainlayout.visibility = View.GONE
+                    bottomSheetBG.visibility = View.GONE
+                    webView.loadUrl(getQuranComLink(chapter_1, verse_1))
+                    bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+                }
 
-            val webView = findViewById<WebView>(R.id.webView)
+                textView2.setOnClickListener {
+                    mainlayout.visibility = View.GONE
+                    bottomSheetBG.visibility = View.GONE
+                    webView.loadUrl(getQuranComLink(chapter_2, verse_2))
+                    bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+                }
 
+                textView3.setOnClickListener {
+                    mainlayout.visibility = View.GONE
+                    bottomSheetBG.visibility = View.GONE
+                    webView.loadUrl(getQuranComLink(chapter_3, verse_3))
+                    bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+                }
 
-
-            textView1.setOnClickListener {
-                mainlayout.visibility = View.GONE
-                bottomSheetBG.visibility = View.GONE
-                webView.loadUrl(getQuranComLink(results["chapter_1"], results["verse_1"]))
-                bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
-            }
-
-            textView2.setOnClickListener {
-                mainlayout.visibility = View.GONE
-                bottomSheetBG.visibility = View.GONE
-                webView.loadUrl(getQuranComLink(results["chapter_2"], results["verse_2"]))
-                bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
-            }
-
-            textView3.setOnClickListener {
-                mainlayout.visibility = View.GONE
-                bottomSheetBG.visibility = View.GONE
-                webView.loadUrl(getQuranComLink(results["chapter_3"], results["verse_3"]))
-                bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
-            }
-
+                bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+            })
             bottomSheetBG.visibility = View.VISIBLE
         }
+
 
 
         btnDelete.setOnClickListener {
@@ -228,6 +232,23 @@ class MainActivity : AppCompatActivity(), Timer.OnTimerTickListener {
         btnRecord.setImageResource(R.drawable.ic_pause)
 
         timer.start()
+    }
+
+    private fun setVerseText(chapter: Int, verse: Int, textView: TextView) {
+        val queue = Volley.newRequestQueue(this)
+        val postRequest = JsonObjectRequest(
+            Request.Method.GET,
+            getQuranTextLink(chapter, verse), null, {
+                    response ->
+                textView.text = response.getJSONObject("data").getString("text")
+            }
+        ) { error -> Log.e("sendAudio", error.localizedMessage ?: error.message.toString()) }
+
+        queue.add(postRequest)
+    }
+
+    private fun getQuranTextLink(chapter: Int, verse: Int) : String {
+        return String.format("https://api.alquran.cloud/v1/ayah/%d:%d", chapter, verse)
     }
 
     private fun recommendation() {

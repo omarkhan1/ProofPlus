@@ -1,52 +1,50 @@
 package edu.umich.anauman.quranai
 
+import android.content.Context
 import android.util.Log
+import com.android.volley.DefaultRetryPolicy
 import com.android.volley.Request
+import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.Volley
 import org.json.JSONObject
+import java.io.File
+import java.io.FileInputStream
+import android.util.Base64
 import java.sql.DriverManager
 import java.sql.Connection
 import java.sql.Statement
 import java.util.*
 
 
-fun getPredictions(file: String): Map<String, Int> {
+fun getPredictions(context: Context, filepath: String, successListener: Response.Listener<JSONObject>) {
+    val queue = Volley.newRequestQueue(context)
     val serverUrl = "https://proof-plus.herokuapp.com/"
 
+    val file = File(filepath)
+    val inputStream = FileInputStream(file)
+    val bytes = ByteArray(file.length().toInt())
+    inputStream.read(bytes)
+    inputStream.close()
+
+    val base64FileData = Base64.encodeToString(bytes, Base64.DEFAULT)
     val jsonObject = mapOf(
-        "file" to file
+        "file" to base64FileData
     )
 
-    var returnObj: Map<String, Int> = mutableMapOf()
+    Log.d("HII", "hi")
 
     val postRequest = JsonObjectRequest(
         Request.Method.POST,
-        serverUrl+"predict/", JSONObject(jsonObject),
-        {
+        serverUrl+"predict", JSONObject(jsonObject), successListener
+    ) { error -> Log.e("sendAudio", error.localizedMessage ?: error.message.toString()) }
 
-            response ->
-            val chapter_1 = response.getJSONObject("location_1").getInt("chapter")
-            val verse_1 = response.getJSONObject("location_1").getInt("verse")
-            val chapter_2 = response.getJSONObject("location_2").getInt("chapter")
-            val verse_2 = response.getJSONObject("location_2").getInt("verse")
-            val chapter_3 = response.getJSONObject("location_3").getInt("chapter")
-            val verse_3 = response.getJSONObject("location_3").getInt("verse")
+    postRequest.retryPolicy = DefaultRetryPolicy(
+        5000,
+        DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
 
-            returnObj = mapOf(
-                "chapter_1" to chapter_1,
-                "verse_1" to verse_1,
-                "chapter_2" to chapter_2,
-                "verse_2" to verse_2,
-                "chapter_3" to chapter_3,
-                "verse_3" to verse_3,
-            )
-
-            Log.d("sendAudio", "predictions received")
-        },
-        { error -> Log.e("sendAudio", error.localizedMessage ?: "JsonObjectRequest error") }
-    )
-
-    return returnObj
+    queue.add(postRequest)
 }
 
 fun sendClick(chapter: Int, verse: Int) {
