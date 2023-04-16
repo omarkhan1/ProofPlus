@@ -78,11 +78,10 @@ def predict(encoded_data: str):
     results = []
     for _ in range(3):
         label = np.argmax(probabilities)
-        prob = probabilities[label] # Delay the conversion for comparison
-        #prob = str(probabilities[label]) # convert to string because JSON can't take floats
+        prob = probabilities[label]
         probabilities[label] = -1  # verse will not be considered later
         if prob < 0.01:
-            results.append(Location(-1, -1, "0.0"))
+            results.append(Location(0, 0, "0.0"))
             continue
         surah, verse = get_surah_and_verse(label)
         results.append(Location(surah, verse, str(prob)))
