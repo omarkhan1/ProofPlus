@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bottomSheet"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_round"
+    android:orientation="vertical"
+    app:layout_behavior="@string/bottom_sheet_behavior">
+
+
+    <LinearLayout
+        android:id="@+id/three"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!--        <TextView-->
+        <!--            android:id="@+id/bottomsheetHeader"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:text="Display results here"-->
+        <!--            android:textSize="26sp"-->
+        <!--            android:layout_marginTop="20dp"-->
+        <!--            android:layout_marginBottom="20dp"-->
+        <!--            android:textAlignment="center"/>-->
+
+        <!--        <TextView-->
+        <!--            android:id="@+id/bottomsheetSubheader"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:text="Display results here"-->
+        <!--            android:textSize="16sp"-->
+        <!--            android:layout_marginTop="20dp"-->
+        <!--            android:layout_marginBottom="20dp"-->
+        <!--            android:textAlignment="center"/>-->
+
+        <TextView
+            android:id="@+id/verse1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:autoLink="web"
+            android:gravity="center"
+            android:text="Verse 1"
+            android:textSize="22sp" />
+
+        <TextView
+            android:id="@+id/verse2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:autoLink="web"
+            android:gravity="center"
+            android:text="Verse 2"
+            android:textSize="22sp" />
+
+        <TextView
+            android:id="@+id/verse3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:autoLink="web"
+            android:gravity="center"
+            android:text="Verse 3"
+            android:textSize="22sp" />
+
+    </LinearLayout>
+
+
+
+
+</LinearLayout>
