@@ -170,24 +170,51 @@ class MainActivity : AppCompatActivity(), Timer.OnTimerTickListener {
                 setVerseText(chapter_2, verse_2, textView2)
                 setVerseText(chapter_3, verse_3, textView3)
 
+                // Set onClickListener for textView1
                 textView1.setOnClickListener {
+                    // Hide the main layout and bottom sheet background
                     mainlayout.visibility = View.GONE
                     bottomSheetBG.visibility = View.GONE
-                    webView.loadUrl(getQuranComLink(chapter_1, verse_1))
+
+                    // Get the link for the Quranic verse using the chapter and verse numbers
+                    val intent = Intent(this, ReaderViewActivity::class.java)
+                    intent.putExtra("chapter", chapter_1)
+                    intent.putExtra("verse", verse_1)
+                    startActivity(intent)
+
+                    // Set the state of the bottom sheet behavior to collapsed
                     bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
                 }
 
+                // Set onClickListener for textView2
                 textView2.setOnClickListener {
+                    // Hide the main layout and bottom sheet background
                     mainlayout.visibility = View.GONE
                     bottomSheetBG.visibility = View.GONE
-                    webView.loadUrl(getQuranComLink(chapter_2, verse_2))
+
+                    // Get the link for the Quranic verse using the chapter and verse numbers
+                    val intent = Intent(this, ReaderViewActivity::class.java)
+                    intent.putExtra("chapter", chapter_2)
+                    intent.putExtra("verse", verse_2)
+                    startActivity(intent)
+
+                    // Set the state of the bottom sheet behavior to collapsed
                     bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
                 }
 
+                // Set onClickListener for textView3
                 textView3.setOnClickListener {
+                    // Hide the main layout and bottom sheet background
                     mainlayout.visibility = View.GONE
                     bottomSheetBG.visibility = View.GONE
-                    webView.loadUrl(getQuranComLink(chapter_3, verse_3))
+
+                    // Get the link for the Quranic verse using the chapter and verse numbers
+                    val intent = Intent(this, ReaderViewActivity::class.java)
+                    intent.putExtra("chapter", chapter_3)
+                    intent.putExtra("verse", verse_3)
+                    startActivity(intent)
+
+                    // Set the state of the bottom sheet behavior to collapsed
                     bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
                 }
 

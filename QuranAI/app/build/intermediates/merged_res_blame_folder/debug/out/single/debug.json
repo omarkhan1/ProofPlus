@@ -1,0 +1,118 @@
+[
+    {
+        "merged": "edu.umich.anauman.quranai.app-merged_res-44:/layout_webview.xml.flat",
+        "source": "edu.umich.anauman.quranai.app-main-46:/layout/webview.xml"
+    },
+    {
+        "merged": "edu.umich.anauman.quranai.app-merged_res-44:/drawable_ic_pause.xml.flat",
+        "source": "edu.umich.anauman.quranai.app-main-46:/drawable/ic_pause.xml"
+    },
+    {
+        "merged": "edu.umich.anauman.quranai.app-merged_res-44:/mipmap-mdpi_ic_launcher_round.webp.flat",
+        "source": "edu.umich.anauman.quranai.app-main-46:/mipmap-mdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "edu.umich.anauman.quranai.app-merged_res-44:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "edu.umich.anauman.quranai.app-main-46:/mipmap-anydpi-v26/ic_launcher_round.xml"
+    },
+    {
+        "merged": "edu.umich.anauman.quranai.app-merged_res-44:/mipmap-xhdpi_ic_launcher_round.webp.flat",
+        "source": "edu.umich.anauman.quranai.app-main-46:/mipmap-xhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "edu.umich.anauman.quranai.app-merged_res-44:/drawable_ic_delete_disabled.xml.flat",
+        "source": "edu.umich.anauman.quranai.app-main-46:/drawable/ic_delete_disabled.xml"
+    },
+    {
+        "merged": "edu.umich.anauman.quranai.app-merged_res-44:/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "edu.umich.anauman.quranai.app-main-46:/mipmap-anydpi-v26/ic_launcher.xml"
+    },
+    {
+        "merged": "edu.umich.anauman.quranai.app-merged_res-44:/drawable-v24_ic_launcher_foreground.xml.flat",
+        "source": "edu.umich.anauman.quranai.app-main-46:/drawable-v24/ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "edu.umich.anauman.quranai.app-merged_res-44:/drawable_ic_ripple.xml.flat",
+        "source": "edu.umich.anauman.quranai.app-main-46:/drawable/ic_ripple.xml"
+    },
+    {
+        "merged": "edu.umich.anauman.quranai.app-merged_res-44:/mipmap-mdpi_ic_launcher.webp.flat",
+        "source": "edu.umich.anauman.quranai.app-main-46:/mipmap-mdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "edu.umich.anauman.quranai.app-merged_res-44:/mipmap-anydpi-v33_ic_launcher.xml.flat",
+        "source": "edu.umich.anauman.quranai.app-main-46:/mipmap-anydpi-v33/ic_launcher.xml"
+    },
+    {
+        "merged": "edu.umich.anauman.quranai.app-merged_res-44:/drawable_ic_delete.xml.flat",
+        "source": "edu.umich.anauman.quranai.app-main-46:/drawable/ic_delete.xml"
+    },
+    {
+        "merged": "edu.umich.anauman.quranai.app-merged_res-44:/mipmap-xxhdpi_ic_launcher.webp.flat",
+        "source": "edu.umich.anauman.quranai.app-main-46:/mipmap-xxhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "edu.umich.anauman.quranai.app-merged_res-44:/layout_bottom_sheet.xml.flat",
+        "source": "edu.umich.anauman.quranai.app-main-46:/layout/bottom_sheet.xml"
+    },
+    {
+        "merged": "edu.umich.anauman.quranai.app-merged_res-44:/mipmap-hdpi_ic_launcher_round.webp.flat",
+        "source": "edu.umich.anauman.quranai.app-main-46:/mipmap-hdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "edu.umich.anauman.quranai.app-merged_res-44:/drawable_background_round.xml.flat",
+        "source": "edu.umich.anauman.quranai.app-main-46:/drawable/background_round.xml"
+    },
+    {
+        "merged": "edu.umich.anauman.quranai.app-merged_res-44:/drawable_ic_record.xml.flat",
+        "source": "edu.umich.anauman.quranai.app-main-46:/drawable/ic_record.xml"
+    },
+    {
+        "merged": "edu.umich.anauman.quranai.app-merged_res-44:/layout_bottom_sheeta.xml.flat",
+        "source": "edu.umich.anauman.quranai.app-main-46:/layout/bottom_sheeta.xml"
+    },
+    {
+        "merged": "edu.umich.anauman.quranai.app-merged_res-44:/mipmap-xxxhdpi_ic_launcher.webp.flat",
+        "source": "edu.umich.anauman.quranai.app-main-46:/mipmap-xxxhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "edu.umich.anauman.quranai.app-merged_res-44:/xml_data_extraction_rules.xml.flat",
+        "source": "edu.umich.anauman.quranai.app-main-46:/xml/data_extraction_rules.xml"
+    },
+    {
+        "merged": "edu.umich.anauman.quranai.app-merged_res-44:/drawable_ic_launcher_background.xml.flat",
+        "source": "edu.umich.anauman.quranai.app-main-46:/drawable/ic_launcher_background.xml"
+    },
+    {
+        "merged": "edu.umich.anauman.quranai.app-merged_res-44:/drawable_ic_list.xml.flat",
+        "source": "edu.umich.anauman.quranai.app-main-46:/drawable/ic_list.xml"
+    },
+    {
+        "merged": "edu.umich.anauman.quranai.app-merged_res-44:/drawable_ic_done.xml.flat",
+        "source": "edu.umich.anauman.quranai.app-main-46:/drawable/ic_done.xml"
+    },
+    {
+        "merged": "edu.umich.anauman.quranai.app-merged_res-44:/mipmap-xxxhdpi_ic_launcher_round.webp.flat",
+        "source": "edu.umich.anauman.quranai.app-main-46:/mipmap-xxxhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "edu.umich.anauman.quranai.app-merged_res-44:/xml_backup_rules.xml.flat",
+        "source": "edu.umich.anauman.quranai.app-main-46:/xml/backup_rules.xml"
+    },
+    {
+        "merged": "edu.umich.anauman.quranai.app-merged_res-44:/layout_activity_main.xml.flat",
+        "source": "edu.umich.anauman.quranai.app-main-46:/layout/activity_main.xml"
+    },
+    {
+        "merged": "edu.umich.anauman.quranai.app-merged_res-44:/mipmap-xxhdpi_ic_launcher_round.webp.flat",
+        "source": "edu.umich.anauman.quranai.app-main-46:/mipmap-xxhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "edu.umich.anauman.quranai.app-merged_res-44:/mipmap-hdpi_ic_launcher.webp.flat",
+        "source": "edu.umich.anauman.quranai.app-main-46:/mipmap-hdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "edu.umich.anauman.quranai.app-merged_res-44:/mipmap-xhdpi_ic_launcher.webp.flat",
+        "source": "edu.umich.anauman.quranai.app-main-46:/mipmap-xhdpi/ic_launcher.webp"
+    }
+]
