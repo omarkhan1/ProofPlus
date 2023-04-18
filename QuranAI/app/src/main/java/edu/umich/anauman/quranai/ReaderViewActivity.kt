@@ -15,16 +15,11 @@ import org.json.JSONObject
 import java.io.IOException
 
 class ReaderViewActivity : Activity() {
-
-    private var firstOpen = true
-
+    
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.reader_view)
-
-        val mediaPlayer = MediaPlayer.create(this, R.raw.verse2)
-        mediaPlayer.start()
 
         // Get the verse from the intent extra
         val verse = intent.getStringExtra("verse")
@@ -46,11 +41,18 @@ class ReaderViewActivity : Activity() {
                     // Parse the JSON response
                     val json = JSONObject(response.body!!.string())
                     val text = json.getJSONObject("verse").getString("text_simple")
+                    val audioUrl = json.getJSONObject("verse").getJSONArray("audio").getJSONObject(0).getString("url")
 
                     // Update the XML fields with the Quranic verse
                     runOnUiThread {
                         val verseTextView = findViewById<TextView>(R.id.verse_text)
                         verseTextView.text = text
+
+                        // Update the source of the MediaPlayer with the audio file
+                        val mediaPlayer = MediaPlayer()
+                        mediaPlayer.setDataSource(audioUrl)
+                        mediaPlayer.prepareAsync()
+                        mediaPlayer.setOnPreparedListener { mp -> mp.start() }
                     }
                 }
             }
