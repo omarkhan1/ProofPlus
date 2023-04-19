@@ -3,3 +3,4 @@ backend/__pycache__/
 email_feature/env
 email_feature/password.py
 email_feature/__pycache__/
+email_feature/cred.json
